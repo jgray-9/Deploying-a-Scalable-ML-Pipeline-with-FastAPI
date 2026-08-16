@@ -26,10 +26,10 @@ class Data(BaseModel):
     hours_per_week: int = Field(..., example=40, alias="hours-per-week")
     native_country: str = Field(..., example="United-States", alias="native-country")
 
-path = os.path.join(project_path, "model", "encoder.pkl") 
+path = os.path.join(".", "model", "encoder.pkl") 
 encoder = load_model(path)
 
-path = os.path.join(project_path, "model", "model.pkl") 
+path = os.path.join(".", "model", "model.pkl") 
 model = load_model(path)
 
 app = FastAPI()
@@ -63,7 +63,6 @@ async def post_inference(data: Data):
     data_processed, _, _, _ = process_data(
         data,
         cat_features,
-        label="salary",
         training=False,
         encoder=encoder
     )
